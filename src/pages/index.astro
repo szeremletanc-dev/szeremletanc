@@ -1,81 +1,376 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Card from '../components/Card.astro';
+// This is the homepage
+
+import CoverPhoto from "/images/coverPhoto.jpg";
+import Layout from "../layouts/Layout.astro";
+import Navbar from "../components/Navbar.astro";
+import MenuIcon from "../components/MenuIcon.astro";
+import { menu } from "../api/menu";
+import { mainPage } from "../api/mainPage";
+import { pageForPosts } from "../api/pageForPosts";
 ---
 
-<Layout title="Welcome to Astro.">
-	<main>
-		<h1>Welcome to <span class="text-gradient">Astro</span></h1>
-		<p class="instructions">
-			To get started, open the directory <code>src/pages</code> in your project.<br />
-			<strong>Code Challenge:</strong> Tweak the "Welcome to Astro" message above.
-		</p>
-		<ul role="list" class="link-card-grid">
-			<Card
-				href="https://docs.astro.build/"
-				title="Documentation"
-				body="Learn how Astro works and explore the official API docs."
-			/>
-			<Card
-				href="https://astro.build/integrations/"
-				title="Integrations"
-				body="Supercharge your project with new frameworks and libraries."
-			/>
-			<Card
-				href="https://astro.build/themes/"
-				title="Themes"
-				body="Explore a galaxy of community-built starter themes."
-			/>
-			<Card
-				href="https://astro.build/chat/"
-				title="Community"
-				body="Come say hi to our amazing Discord community. ❤️"
-			/>
-		</ul>
-	</main>
+<Layout title="Szeremlei Néptáncegyüttes">
+  <!-- COVER -->
+  <div class="cover-container">
+    <header>
+      <!-- Cover image -->
+      <div class="cover-image-container">
+        <img alt="Cover photo" src={CoverPhoto} class="cover-image" />
+        <div class="cover-image-overlay"></div>
+      </div>
+
+      <!-- Cover titles -->
+      <div class="cover-title-container">
+        <a href="/">
+          <h1 hidden>Szeremlei Néptáncegyüttes</h1>
+          <div class="cover-title-1">Szeremlei</div>
+          <div class="cover-title-2">Néptáncegyüttes</div>
+          <div class="cover-subtitle">alapítva 1927</div>
+        </a>
+      </div>
+    </header>
+
+    <!-- Cover Navbars -->
+    <nav class="cover-navbar">
+      <Navbar menu={menu} pageForPosts={pageForPosts} />
+    </nav>
+    <nav class="cover-navbar-mobile">
+      <div class="cover-navbar-mobile-button">
+        <MenuIcon />
+      </div>
+      <Navbar menu={menu} pageForPosts={pageForPosts} />
+    </nav>
+  </div>
+  <!-- END COVER -->
+
+  <!-- SAMPLE -->
+  <main class="sample-container">
+    <div class="sample-rect">
+      <div class="sample-title">{mainPage.title.rendered}</div>
+      <div class="sample-excerpt" set:html={mainPage.excerpt.rendered} />
+      <a class="sample-button" href={`/oldal/${mainPage.slug}`}>Bővebben...</a>
+    </div>
+  </main>
+  <!-- END SAMPLE -->
 </Layout>
 
-<style>
-	main {
-		margin: auto;
-		padding: 1.5rem;
-		max-width: 60ch;
-	}
-	h1 {
-		font-size: 3rem;
-		font-weight: 800;
-		margin: 0;
-	}
-	.text-gradient {
-		background-image: var(--accent-gradient);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-size: 400%;
-		background-position: 0%;
-	}
-	.instructions {
-		line-height: 1.6;
-		margin: 1rem 0;
-		border: 1px solid rgba(var(--accent), 25%);
-		background-color: white;
-		padding: 1rem;
-		border-radius: 0.4rem;
-	}
-	.instructions code {
-		font-size: 0.875em;
-		font-weight: bold;
-		background: rgba(var(--accent), 12%);
-		color: rgb(var(--accent));
-		border-radius: 4px;
-		padding: 0.3em 0.45em;
-	}
-	.instructions strong {
-		color: rgb(var(--accent));
-	}
-	.link-card-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
-		gap: 1rem;
-		padding: 0;
-	}
+<style is:global>
+  /*---
+  COVER
+  ---*/
+
+  .cover-container {
+    height: var(--cover-container-height);
+    position: relative;
+    color: white;
+    text-shadow: 2px 2px 4px #000000;
+  }
+
+  /* Cover image */
+
+  .cover-image-container {
+    position: relative;
+    height: fit-content;
+    width: fit-content;
+  }
+
+  .cover-image {
+    display: block;
+    margin: 0 auto;
+    width: 100dvw;
+    height: var(--cover-container-height);
+    object-fit: cover;
+  }
+
+  .cover-image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(7px);
+  }
+
+  /* Cover titles */
+
+  .cover-title-container {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    width: 26rem;
+    font-family: "Imperial Script", cursive;
+  }
+
+  .cover-title-container a {
+    color: white;
+    text-decoration: none;
+  }
+
+  .cover-title-1 {
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    font-size: 5.5rem;
+    text-align: left;
+  }
+
+  .cover-title-2 {
+    position: absolute;
+    top: 5.5rem;
+    left: 0%;
+    width: 100%;
+    font-size: 3.5rem;
+    text-align: right;
+  }
+
+  .cover-subtitle {
+    position: absolute;
+    top: 11rem;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    width: 100%;
+    text-align: center;
+    font-size: 1rem;
+    font-family: "Fira Mono", monospace;
+  }
+
+  /* Cover navbars */
+  .cover-navbar {
+    position: absolute;
+    top: var(--sample-rect-top);
+    left: calc((100% - var(--cover-navbar-width)) / 2);
+    transform: translate(0, -100%);
+    width: var(--cover-navbar-width);
+    text-align: center;
+  }
+
+  .cover-navbar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-family: "Open Sans", sans-serif;
+    text-transform: uppercase;
+  }
+
+  .cover-navbar li {
+    display: inline-block;
+  }
+
+  .cover-navbar a {
+    display: block;
+    padding: 1rem;
+    color: white;
+    text-decoration: none;
+  }
+
+  .cover-navbar-mobile {
+    display: none;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    top: 20rem;
+    left: calc((100% - var(--cover-navbar-width)) / 2);
+    transform: translate(0, -100%);
+    width: var(--cover-navbar-width);
+    text-align: center;
+  }
+
+  .cover-navbar-mobile ul {
+    display: none;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-family: "Open Sans", sans-serif;
+    text-transform: uppercase;
+  }
+
+  .cover-navbar-mobile-button {
+    display: grid;
+    place-items: center;
+  }
+
+  .cover-navbar-mobile-button svg {
+    display: block;
+    height: 2rem;
+  }
+
+  /*---
+  SAMPLE
+  ---*/
+
+  .sample-container {
+    /* display: none; */
+    height: fit-content;
+    position: relative;
+    width: calc(100% - 4rem);
+    margin: 0 auto;
+  }
+
+  /* Sample rectangle */
+
+  .sample-rect {
+    margin: -2rem auto 2rem auto;
+    width: calc(100% - 2 * var(--sample-rect-padding));
+    max-width: 1000px;
+    height: fit-content;
+    padding: 3rem var(--sample-rect-padding);
+    border-radius: 1rem;
+    background-color: white;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
+  }
+
+  /* Sample title */
+
+  .sample-title {
+    font-family: "Playfair Display", serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  .sample-excerpt {
+    font-family: "Open Sans", sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    text-align: justify;
+    padding-bottom: 1rem;
+  }
+
+  /* Sample button */
+
+  .sample-button {
+    appearance: button;
+    text-decoration: none;
+    border: none;
+    background-color: #b5584f;
+    color: white;
+    font-family: "Open Sans", sans-serif;
+    border-radius: 10rem;
+    padding: 0.7rem 1rem;
+  }
+
+  /*---
+  MEDIA QUERIES
+  ---*/
+
+  @media screen and (max-width: 768px) {
+    .cover-navbar {
+      display: none;
+    }
+
+    .cover-navbar-mobile {
+      display: block;
+    }
+
+    .cover-title-1 {
+      font-size: 4rem;
+    }
+
+    .cover-title-2 {
+      font-size: 2.5rem;
+      top: 4rem;
+    }
+
+    .cover-subtitle {
+      font-size: 0.8rem;
+      top: 8rem;
+    }
+
+    .cover-title-container {
+      width: 18rem;
+    }
+
+    .sample-container {
+      width: calc(100% - 2rem);
+    }
+
+    .sample-rect {
+      padding: 2rem var(--sample-rect-padding);
+    }
+
+    .sample-title {
+      font-size: 1.7rem;
+      padding-bottom: 1rem;
+    }
+
+    .sample-excerpt {
+      font-size: 1rem;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .cover-navbar-mobile {
+      top: 12rem;
+    }
+
+    .cover-title-1 {
+      font-size: 3rem;
+    }
+
+    .cover-title-2 {
+      font-size: 2rem;
+      top: 3rem;
+    }
+
+    .cover-subtitle {
+      font-size: 0.6rem;
+      top: 6rem;
+    }
+
+    .cover-title-container {
+      top: 10%;
+      width: 14rem;
+    }
+
+    .sample-rect {
+      padding: 1rem var(--sample-rect-padding);
+    }
+
+    .sample-title {
+      font-size: 1.5rem;
+      padding-bottom: 0.6rem;
+    }
+  }
+
+  @media screen and (max-width: 360px) {
+    .cover-navbar-mobile {
+      top: 7rem;
+    }
+
+    .cover-title-1 {
+      display: none;
+    }
+
+    .cover-title-2 {
+      display: none;
+    }
+
+    .cover-subtitle {
+      font-size: 0.8rem;
+      top: 3rem;
+    }
+
+    .cover-title-container {
+      width: 100%;
+      text-align: center;
+    }
+
+    .cover-title-container h1 {
+      display: block;
+      font-weight: 400;
+      padding: 0;
+      margin: 0;
+    }
+
+    .sample-title {
+      font-size: 1.3rem;
+      padding-bottom: 0.5rem;
+    }
+  }
 </style>
