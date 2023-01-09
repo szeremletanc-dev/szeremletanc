@@ -37,18 +37,18 @@ import { pageForPosts } from "../api/pageForPosts";
   </nav>
 
   <!-- NAVBAR MOBILE -->
-  <nav class="home-navbar-mobile">
-    <div class="home-navbar-mobile-open">
-      <MenuIcon />
-    </div>
+  <div class="home-navbar-mobile-open" id="home-navbar-mobile-open">
+    <MenuIcon />
+  </div>
 
-    <div class="home-navbar-mobile-close">
-      <div class="home-navbar-mobile-close">
-        <CloseIcon />
-      </div>
-      <Navbar menu={menu} pageForPosts={pageForPosts} />
+  <div class="home-navbar-mobile-container" id="home-navbar-mobile-container">
+    <div class="home-navbar-mobile-close" id="home-navbar-mobile-close">
+      <CloseIcon />
     </div>
-  </nav>
+    <nav>
+      <Navbar menu={menu} pageForPosts={pageForPosts} />
+    </nav>
+  </div>
 
   <!-- SAMPLE -->
   <main class="sample">
@@ -61,11 +61,23 @@ import { pageForPosts } from "../api/pageForPosts";
 </Layout>
 
 <script>
-  const mobileMenuButton = document.getElementById("mobile-menu-button");
-  const mobileMenu = document.getElementById("mobile-menu");
-  const mobileMenuContainer = document.getElementById("mobile-menu-container");
+  const openButton = document.getElementById("home-navbar-mobile-open");
+  const closeButton = document.getElementById("home-navbar-mobile-close");
+  const container = document.getElementById("home-navbar-mobile-container");
 
-  mobileMenuButton?.addEventListener("click", () => {});
+  openButton?.addEventListener("click", () => {
+    container?.classList.add("home-navbar-mobile-container-active");
+  });
+
+  closeButton?.addEventListener("click", () => {
+    container?.classList.remove("home-navbar-mobile-container-active");
+  });
+
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 768) {
+      container?.classList.remove("home-navbar-mobile-container-active");
+    }
+  });
 </script>
 
 <style is:global>
@@ -179,7 +191,7 @@ import { pageForPosts } from "../api/pageForPosts";
     text-decoration: none;
   }
 
-  .home-navbar-mobile {
+  .home-navbar-mobile-open {
     display: none;
     padding: 0;
     margin: 0;
@@ -198,7 +210,29 @@ import { pageForPosts } from "../api/pageForPosts";
     /* transition: 1s; */
   }
 
-  .home-navbar-mobile ul {
+  .home-navbar-mobile-container {
+    position: absolute;
+    top: 20rem;
+    left: 50%;
+    width: 0;
+    height: 0;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+    clip-path: inset(0 0 100% 0);
+    transition: 0.5s ease-in-out;
+    backdrop-filter: blur(7px);
+  }
+
+  .home-navbar-mobile-container-active {
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    clip-path: inset(0 0 0 0);
+  }
+
+  .home-navbar-mobile-container ul {
     display: block;
     list-style: none;
     padding: 0;
@@ -207,17 +241,15 @@ import { pageForPosts } from "../api/pageForPosts";
     text-transform: uppercase;
   }
 
-  .home-navbar-mobile a {
-    
+  .home-navbar-mobile-container a {
+    color: white;
+    text-decoration: none;
   }
 
   .home-navbar-mobile-close {
-    display: block;
-  }
-
-  .home-navbar-mobile-open {
-    display: grid;
-    place-items: center;
+    width: fit-content;
+    margin: 20% auto 0 auto;
+    padding: 1rem;
   }
 
   /*---
@@ -225,7 +257,7 @@ import { pageForPosts } from "../api/pageForPosts";
   ---*/
 
   .sample {
-    display: none;
+    display: block;
     height: fit-content;
     position: relative;
     width: calc(100% - 4rem);
@@ -287,7 +319,7 @@ import { pageForPosts } from "../api/pageForPosts";
       display: none;
     }
 
-    .home-navbar-mobile {
+    .home-navbar-mobile-open {
       display: block;
     }
 
@@ -327,7 +359,7 @@ import { pageForPosts } from "../api/pageForPosts";
   }
 
   @media screen and (max-width: 480px) {
-    .home-navbar-mobile {
+    .home-navbar-mobile-open {
       top: 10rem;
     }
 
@@ -360,7 +392,7 @@ import { pageForPosts } from "../api/pageForPosts";
   }
 
   @media screen and (max-width: 360px) {
-    .home-navbar-mobile {
+    .home-navbar-mobile-open {
       top: 5.5rem;
     }
 
