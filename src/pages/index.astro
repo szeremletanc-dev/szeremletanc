@@ -5,6 +5,7 @@ import CoverPhoto from "/images/coverPhoto.jpg";
 import Layout from "../layouts/Layout.astro";
 import Navbar from "../components/Navbar.astro";
 import MenuIcon from "../components/MenuIcon.astro";
+import CloseIcon from "../components/CloseIcon.astro";
 import { menu } from "../api/menu";
 import { mainPage } from "../api/mainPage";
 import { pageForPosts } from "../api/pageForPosts";
@@ -12,15 +13,13 @@ import { pageForPosts } from "../api/pageForPosts";
 
 <Layout title="Szeremlei Néptáncegyüttes">
   <!-- COVER -->
-  <div class="cover-container">
+  <div class="cover">
     <header>
-      <!-- Cover image -->
       <div class="cover-image-container">
         <img alt="Cover photo" src={CoverPhoto} class="cover-image" />
         <div class="cover-image-overlay"></div>
       </div>
 
-      <!-- Cover titles -->
       <div class="cover-title-container">
         <a href="/">
           <h1 hidden>Szeremlei Néptáncegyüttes</h1>
@@ -30,38 +29,52 @@ import { pageForPosts } from "../api/pageForPosts";
         </a>
       </div>
     </header>
+  </div>
 
-    <!-- Cover Navbars -->
-    <nav class="cover-navbar">
-      <Navbar menu={menu} pageForPosts={pageForPosts} />
-    </nav>
-    <nav class="cover-navbar-mobile">
-      <div class="cover-navbar-mobile-button">
-        <MenuIcon />
+  <!-- NAVBAR DESKTOP -->
+  <nav class="home-navbar-desktop">
+    <Navbar menu={menu} pageForPosts={pageForPosts} />
+  </nav>
+
+  <!-- NAVBAR MOBILE -->
+  <nav class="home-navbar-mobile">
+    <div class="home-navbar-mobile-open">
+      <MenuIcon />
+    </div>
+
+    <div class="home-navbar-mobile-close">
+      <div class="home-navbar-mobile-close">
+        <CloseIcon />
       </div>
       <Navbar menu={menu} pageForPosts={pageForPosts} />
-    </nav>
-  </div>
-  <!-- END COVER -->
+    </div>
+  </nav>
 
   <!-- SAMPLE -->
-  <main class="sample-container">
+  <main class="sample">
     <div class="sample-rect">
       <div class="sample-title">{mainPage.title.rendered}</div>
       <div class="sample-excerpt" set:html={mainPage.excerpt.rendered} />
       <a class="sample-button" href={`/oldal/${mainPage.slug}`}>Bővebben...</a>
     </div>
   </main>
-  <!-- END SAMPLE -->
 </Layout>
+
+<script>
+  const mobileMenuButton = document.getElementById("mobile-menu-button");
+  const mobileMenu = document.getElementById("mobile-menu");
+  const mobileMenuContainer = document.getElementById("mobile-menu-container");
+
+  mobileMenuButton?.addEventListener("click", () => {});
+</script>
 
 <style is:global>
   /*---
   COVER
   ---*/
 
-  .cover-container {
-    height: var(--cover-container-height);
+  .cover {
+    height: var(--cover-height);
     position: relative;
     color: white;
     text-shadow: 2px 2px 4px #000000;
@@ -79,7 +92,7 @@ import { pageForPosts } from "../api/pageForPosts";
     display: block;
     margin: 0 auto;
     width: 100dvw;
-    height: var(--cover-container-height);
+    height: var(--cover-height);
     object-fit: cover;
   }
 
@@ -138,16 +151,16 @@ import { pageForPosts } from "../api/pageForPosts";
   }
 
   /* Cover navbars */
-  .cover-navbar {
+  .home-navbar-desktop {
     position: absolute;
     top: var(--sample-rect-top);
-    left: calc((100% - var(--cover-navbar-width)) / 2);
+    left: calc((100% - var(--home-navbar-width)) / 2);
     transform: translate(0, -100%);
-    width: var(--cover-navbar-width);
+    width: var(--home-navbar-width);
     text-align: center;
   }
 
-  .cover-navbar ul {
+  .home-navbar-desktop ul {
     list-style: none;
     padding: 0;
     margin: 0;
@@ -155,31 +168,38 @@ import { pageForPosts } from "../api/pageForPosts";
     text-transform: uppercase;
   }
 
-  .cover-navbar li {
+  .home-navbar-desktop li {
     display: inline-block;
   }
 
-  .cover-navbar a {
+  .home-navbar-desktop a {
     display: block;
     padding: 1rem;
     color: white;
     text-decoration: none;
   }
 
-  .cover-navbar-mobile {
+  .home-navbar-mobile {
     display: none;
     padding: 0;
     margin: 0;
-    position: absolute;
-    top: 20rem;
-    left: calc((100% - var(--cover-navbar-width)) / 2);
-    transform: translate(0, -100%);
-    width: var(--cover-navbar-width);
     text-align: center;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0);
+    border-radius: 1rem;
+
+    color: white;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    width: 2rem;
+    top: 18rem;
+
+    /* transition: 1s; */
   }
 
-  .cover-navbar-mobile ul {
-    display: none;
+  .home-navbar-mobile ul {
+    display: block;
     list-style: none;
     padding: 0;
     margin: 0;
@@ -187,22 +207,25 @@ import { pageForPosts } from "../api/pageForPosts";
     text-transform: uppercase;
   }
 
-  .cover-navbar-mobile-button {
-    display: grid;
-    place-items: center;
+  .home-navbar-mobile a {
+    
   }
 
-  .cover-navbar-mobile-button svg {
+  .home-navbar-mobile-close {
     display: block;
-    height: 2rem;
+  }
+
+  .home-navbar-mobile-open {
+    display: grid;
+    place-items: center;
   }
 
   /*---
   SAMPLE
   ---*/
 
-  .sample-container {
-    /* display: none; */
+  .sample {
+    display: none;
     height: fit-content;
     position: relative;
     width: calc(100% - 4rem);
@@ -260,11 +283,11 @@ import { pageForPosts } from "../api/pageForPosts";
   ---*/
 
   @media screen and (max-width: 768px) {
-    .cover-navbar {
+    .home-navbar-desktop {
       display: none;
     }
 
-    .cover-navbar-mobile {
+    .home-navbar-mobile {
       display: block;
     }
 
@@ -278,7 +301,6 @@ import { pageForPosts } from "../api/pageForPosts";
     }
 
     .cover-subtitle {
-      font-size: 0.8rem;
       top: 8rem;
     }
 
@@ -286,7 +308,7 @@ import { pageForPosts } from "../api/pageForPosts";
       width: 18rem;
     }
 
-    .sample-container {
+    .sample {
       width: calc(100% - 2rem);
     }
 
@@ -305,8 +327,8 @@ import { pageForPosts } from "../api/pageForPosts";
   }
 
   @media screen and (max-width: 480px) {
-    .cover-navbar-mobile {
-      top: 12rem;
+    .home-navbar-mobile {
+      top: 10rem;
     }
 
     .cover-title-1 {
@@ -319,7 +341,6 @@ import { pageForPosts } from "../api/pageForPosts";
     }
 
     .cover-subtitle {
-      font-size: 0.6rem;
       top: 6rem;
     }
 
@@ -339,8 +360,8 @@ import { pageForPosts } from "../api/pageForPosts";
   }
 
   @media screen and (max-width: 360px) {
-    .cover-navbar-mobile {
-      top: 7rem;
+    .home-navbar-mobile {
+      top: 5.5rem;
     }
 
     .cover-title-1 {

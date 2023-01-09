@@ -39,8 +39,8 @@ const { title } = Astro.props;
   body {
     overflow-x: hidden;
     background-color: #f7f7f7;
-    --cover-container-height: 35rem;
-    --cover-navbar-width: 90%;
+    --cover-height: 35rem;
+    --home-navbar-width: 90%;
     --sample-rect-padding: 6rem;
     --sample-rect-top: 30rem;
   }
@@ -51,21 +51,21 @@ const { title } = Astro.props;
 
   @media screen and (max-width: 768px) {
     body {
-      --cover-container-height: 23rem;
+      --cover-height: 23rem;
       --sample-rect-padding: 2rem;
     }
   }
 
   @media screen and (max-width: 480px) {
     body {
-      --cover-container-height: 15rem;
+      --cover-height: 15rem;
       --sample-rect-padding: 1rem;
     }
   }
 
   @media screen and (max-width: 360px) {
     body {
-      --cover-container-height: 10rem;
+      --cover-height: 10rem;
     }
   }
 </style>
