@@ -1,5 +1,6 @@
 ---
 import { getMainPage } from "../../api/mainPage";
+import PrimaryButton from "../PrimaryButton.astro";
 
 const mainPage = await getMainPage();
 ---
@@ -8,7 +9,7 @@ const mainPage = await getMainPage();
   <div class="sample-rect">
     <div class="sample-title">{mainPage.title.rendered}</div>
     <div class="sample-excerpt" set:html={mainPage.excerpt.rendered} />
-    <a class="sample-button" href={`/oldal/${mainPage.slug}`}>Bővebben...</a>
+    <PrimaryButton url={`/oldal/${mainPage.slug}`} text="Bővebben..." />
   </div>
 </main>
 
@@ -48,17 +49,6 @@ const mainPage = await getMainPage();
     line-height: 1.5rem;
     text-align: justify;
     padding-bottom: 1rem;
-  }
-
-  .sample-button {
-    appearance: button;
-    text-decoration: none;
-    border: none;
-    background-color: #b5584f;
-    color: white;
-    font-family: "Open Sans", sans-serif;
-    border-radius: 10rem;
-    padding: 0.7rem 1rem;
   }
 
   @media screen and (max-width: 768px) {

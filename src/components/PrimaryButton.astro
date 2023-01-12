@@ -1,0 +1,33 @@
+---
+interface Props {
+  url: string;
+  text: string;
+}
+
+const { url, text } = Astro.props;
+---
+
+<div>
+  <a href={url}>{text}</a>
+</div>
+
+<style>
+  div {
+    width: fit-content;
+    height: 3rem;
+    padding: 0 1rem;
+    border: none;
+    background-color: #b5584f;
+    font-family: "Open Sans", sans-serif;
+    border-radius: 10rem;
+    display: grid;
+    align-items: center;
+  }
+
+  a {
+    text-decoration: none;
+    appearance: button;
+
+    color: white;
+  }
+</style>
