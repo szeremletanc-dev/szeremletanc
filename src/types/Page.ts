@@ -1,4 +1,4 @@
-export type Page {
+export type Page = {
   id: number;
   slug: string;
   title: {

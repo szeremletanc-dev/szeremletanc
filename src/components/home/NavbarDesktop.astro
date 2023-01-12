@@ -1,0 +1,53 @@
+---
+import { menu } from "../../api/menu";
+---
+
+<nav class="home-navbar-desktop">
+  <ul>
+    {
+      menu.map((item) => {
+        return (
+          <li>
+            <a href={`/${item.slug}`}>{item.title}</a>
+          </li>
+        );
+      })
+    }
+  </ul>
+</nav>
+
+<style>
+  .home-navbar-desktop {
+    position: absolute;
+    top: var(--sample-rect-top);
+    left: calc((100% - var(--home-navbar-width)) / 2);
+    transform: translate(0, -100%);
+    width: var(--home-navbar-width);
+    text-align: center;
+  }
+
+  .home-navbar-desktop ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-family: "Open Sans", sans-serif;
+    text-transform: uppercase;
+  }
+
+  .home-navbar-desktop li {
+    display: inline-block;
+  }
+
+  .home-navbar-desktop a {
+    display: block;
+    padding: 1rem;
+    color: white;
+    text-decoration: none;
+  }
+
+  @media screen and (max-width: 768px) {
+    .home-navbar-desktop {
+      display: none;
+    }
+  }
+</style>

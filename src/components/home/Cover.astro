@@ -1,0 +1,162 @@
+---
+import CoverPhoto from "/images/coverPhoto.jpg";
+---
+
+<div class="cover">
+  <header>
+    <div class="cover-image-container">
+      <img alt="Cover photo" src={CoverPhoto} class="cover-image" />
+      <div class="cover-image-overlay"></div>
+    </div>
+
+    <div class="cover-title-container">
+      <a href="/">
+        <h1 hidden>Szeremlei Néptáncegyüttes</h1>
+        <div class="cover-title-1">Szeremlei</div>
+        <div class="cover-title-2">Néptáncegyüttes</div>
+        <div class="cover-subtitle">alapítva 1927</div>
+      </a>
+    </div>
+  </header>
+</div>
+
+<style>
+  .cover {
+    height: var(--cover-height);
+    position: relative;
+    color: white;
+    text-shadow: 2px 2px 4px #000000;
+  }
+
+  .cover-image-container {
+    position: relative;
+    height: fit-content;
+    width: fit-content;
+  }
+
+  .cover-image {
+    display: block;
+    margin: 0 auto;
+    width: 100dvw;
+    height: var(--cover-height);
+    object-fit: cover;
+  }
+
+  .cover-image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(7px);
+  }
+
+  .cover-title-container {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    width: 26rem;
+    font-family: "Imperial Script", cursive;
+  }
+
+  .cover-title-container a {
+    color: white;
+    text-decoration: none;
+  }
+
+  .cover-title-1 {
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    font-size: 5.5rem;
+    text-align: left;
+  }
+
+  .cover-title-2 {
+    position: absolute;
+    top: 5.5rem;
+    left: 0%;
+    width: 100%;
+    font-size: 3.5rem;
+    text-align: right;
+  }
+
+  .cover-subtitle {
+    position: absolute;
+    top: 11rem;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    width: 100%;
+    text-align: center;
+    font-size: 1rem;
+    font-family: "Fira Mono", monospace;
+  }
+
+  @media screen and (max-width: 768px) {
+    .cover-title-1 {
+      font-size: 4rem;
+    }
+
+    .cover-title-2 {
+      font-size: 2.5rem;
+      top: 4rem;
+    }
+
+    .cover-subtitle {
+      top: 8rem;
+    }
+
+    .cover-title-container {
+      width: 18rem;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    . .cover-title-1 {
+      font-size: 3rem;
+    }
+
+    .cover-title-2 {
+      font-size: 2rem;
+      top: 3rem;
+    }
+
+    .cover-subtitle {
+      top: 6rem;
+    }
+
+    .cover-title-container {
+      top: 10%;
+      width: 14rem;
+    }
+  }
+
+  @media screen and (max-width: 360px) {
+    .cover-title-1 {
+      display: none;
+    }
+
+    .cover-title-2 {
+      display: none;
+    }
+
+    .cover-subtitle {
+      font-size: 0.8rem;
+      top: 3rem;
+    }
+
+    .cover-title-container {
+      width: 100%;
+      text-align: center;
+    }
+
+    .cover-title-container h1 {
+      display: block;
+      font-weight: 400;
+      padding: 0;
+      margin: 0;
+    }
+  }
+</style>
