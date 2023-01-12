@@ -1,7 +1,9 @@
 ---
-import { menu } from "../../api/menu";
+import { getMenu } from "../../api/menu";
 import CloseIcon from "../CloseIcon.astro";
 import MenuIcon from "../MenuIcon.astro";
+
+const menu = await getMenu();
 ---
 
 <>

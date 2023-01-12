@@ -1,9 +1,11 @@
 ---
-import { menu } from "../api/menu";
-import { posts } from "../api/posts";
+import { getMenu } from "../api/menu";
+import { getPosts } from "../api/posts";
 import Navbar from "./Navbar.astro";
 
-console.log(posts)
+const posts = await getPosts();
+
+const menu = await getMenu();
 ---
 
 <section>

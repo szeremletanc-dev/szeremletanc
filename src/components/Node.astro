@@ -1,5 +1,5 @@
 ---
-import { menu } from "../api/menu";
+import { getMenu } from "../api/menu";
 import type { Page } from "../types/Page";
 import type { Post } from "../types/Post";
 import Navbar from "./Navbar.astro";
@@ -10,6 +10,8 @@ interface Props {
   node: Page | Post | null;
   uri: string | undefined;
 }
+
+const menu = await getMenu();
 ---
 
 <article>

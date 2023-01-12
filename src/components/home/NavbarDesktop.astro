@@ -1,5 +1,7 @@
 ---
-import { menu } from "../../api/menu";
+import { getMenu } from "../../api/menu";
+
+const menu = await getMenu();
 ---
 
 <nav class="home-navbar-desktop">
