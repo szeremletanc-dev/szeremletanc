@@ -1,0 +1,24 @@
+---
+import { search } from "../api/search";
+import Node from "../components/Node.astro";
+import Posts from "../components/Posts.astro";
+import Layout from "../layouts/Layout.astro";
+import type { Page } from "../types/Page";
+import type { Post } from "../types/Post";
+
+const { uri } = Astro.params;
+
+let node: Page | Post | null = null;
+if (uri) {
+  node = await search(uri);
+}
+
+let isPageForPosts: boolean = false;
+if (node?.type === "page" && node.menu_order === 100) {
+  isPageForPosts = true;
+}
+---
+
+<Layout title={uri ? uri : ""}>
+  {node && isPageForPosts ? <Posts /> : <Node node={node} uri={uri} />}
+</Layout>

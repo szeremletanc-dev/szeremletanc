@@ -1,0 +1,22 @@
+---
+import { menu } from "../api/menu";
+import { posts } from "../api/posts";
+import Navbar from "./Navbar.astro";
+---
+
+<section>
+  <a href="/">Szeremlei Néptáncegyüttes</a>
+  <Navbar menu={menu} />
+  {
+    posts.map((post) => {
+      return (
+        <article>
+          <h1>
+            <a href={`/${post.slug}`}>{post.title.rendered}</a>
+          </h1>
+          <div class="content" set:html={post.content.rendered} />
+        </article>
+      );
+    })
+  }
+</section>

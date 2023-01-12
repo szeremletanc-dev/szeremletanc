@@ -4,20 +4,17 @@ import type { MenuItem } from "../types/MenuItem";
 
 interface Props {
   menu: MenuItem[];
-  pageForPosts: Page;
 }
-const { menu, pageForPosts } = Astro.props;
+
+const { menu } = Astro.props;
 ---
 
 <ul>
   {
-    menu.map((page: MenuItem) => {
-      // check if page is the page for posts
-      const url = pageForPosts.id === parseInt(page.object_id) ? `/hirek` : `/${page.slug}`;
-
+    menu.map((item: MenuItem) => {
       return (
         <li>
-          <a href={`/oldal${url}`}>{page.title}</a>
+          <a href={`/${item.slug}`}>{item.title}</a>
         </li>
       );
     })

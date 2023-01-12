@@ -1,4 +1,4 @@
-export interface Page {
+export type Page {
   id: number;
   slug: string;
   title: {
@@ -12,4 +12,5 @@ export interface Page {
   };
   menu_order: number;
   author: number;
+  type: "page";
 }

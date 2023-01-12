@@ -1,0 +1,31 @@
+---
+import { menu } from "../api/menu";
+import type { Page } from "../types/Page";
+import type { Post } from "../types/Post";
+import Navbar from "./Navbar.astro";
+
+const { node, uri } = Astro.props;
+
+interface Props {
+  node: Page | Post | null;
+  uri: string | undefined;
+}
+---
+
+<article>
+  <a href="/">Szeremlei Néptáncegyüttes</a>
+  <Navbar menu={menu} />
+  {
+    node ? (
+      <>
+        <h1>{node?.title?.rendered}</h1>
+        <div class="content" set:html={node?.content?.rendered} />
+      </>
+    ) : (
+      <>
+        <h1>404</h1>
+        <p>Sorry, we couldn't find a page for {uri}.</p>
+      </>
+    )
+  }
+</article>

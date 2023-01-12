@@ -8,7 +8,6 @@ import MenuIcon from "../components/MenuIcon.astro";
 import CloseIcon from "../components/CloseIcon.astro";
 import { menu } from "../api/menu";
 import { mainPage } from "../api/mainPage";
-import { pageForPosts } from "../api/pageForPosts";
 ---
 
 <Layout title="Szeremlei Néptáncegyüttes">
@@ -33,7 +32,7 @@ import { pageForPosts } from "../api/pageForPosts";
 
   <!-- NAVBAR DESKTOP -->
   <nav class="home-navbar-desktop">
-    <Navbar menu={menu} pageForPosts={pageForPosts} />
+    <Navbar menu={menu} />
   </nav>
 
   <!-- NAVBAR MOBILE -->
@@ -46,7 +45,7 @@ import { pageForPosts } from "../api/pageForPosts";
       <CloseIcon />
     </div>
     <nav>
-      <Navbar menu={menu} pageForPosts={pageForPosts} />
+      <Navbar menu={menu} />
     </nav>
   </div>
 

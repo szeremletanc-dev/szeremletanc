@@ -13,4 +13,5 @@ export type Post = {
   date: string;
   author: number;
   categories: number[];
+  type: "post";
 }
