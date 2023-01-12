@@ -9,7 +9,7 @@ const mainPage = await getMainPage();
   <div class="sample-rect">
     <div class="sample-title">{mainPage.title.rendered}</div>
     <div class="sample-excerpt" set:html={mainPage.excerpt.rendered} />
-    <PrimaryButton url={`/oldal/${mainPage.slug}`} text="Bővebben..." />
+    <PrimaryButton url={`/${mainPage.slug}`} text="Bővebben..." />
   </div>
 </main>
 
