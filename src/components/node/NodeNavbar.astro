@@ -1,0 +1,99 @@
+---
+import { getMenu } from "../../api/menu";
+import type { Node } from "../../types/Node";
+
+interface Props {
+  node: Node;
+}
+
+const { node }: Props = Astro.props;
+const menu = await getMenu();
+---
+
+<header>
+  <div class="grid">
+    <div class="logo">
+      <a href="/">Szeremlei Néptáncegyüttes</a>
+    </div>
+    <div class="menu">
+      <nav class="node-navbar-desktop">
+        <ul>
+          {
+            menu.map((item) => {
+              let styled: boolean = false;
+              if (item.slug === node?.slug) {
+                styled = true;
+              }
+
+              return (
+                <li>
+                  <a href={`/${item.slug}`} class={styled ? "styled" : null}>
+                    {item.title}
+                  </a>
+                </li>
+              );
+            })
+          }
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<style>
+  header {
+    width: 100%;
+    background: #b5584f;
+    height: 4em;
+  }
+
+  a {
+    color: white;
+    text-decoration: none;
+  }
+
+  .grid {
+    margin: 0 auto;
+    width: calc(100% - 2rem);
+    max-width: 1000px;
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 1em;
+    height: 100%;
+  }
+
+  .logo {
+    font-family: "Imperial Script", cursive;
+    font-size: 2em;
+    height: 100%;
+    display: grid;
+    align-items: center;
+    justify-items: start;
+  }
+
+  .menu {
+    height: 100%;
+    display: grid;
+    align-items: center;
+    justify-items: end;
+  }
+
+  nav ul {
+    list-style: none;
+    padding: 0;
+    margin-left: auto;
+    font-family: "Open Sans", sans-serif;
+    text-transform: uppercase;
+    width: fit-content;
+  }
+
+  nav li {
+    display: inline-block;
+    margin-left: 1em;
+  }
+
+  .styled {
+    /* text-decoration: underline; */
+    border-bottom: 1px solid white;
+  }
+</style>

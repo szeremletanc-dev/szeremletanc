@@ -1,12 +1,11 @@
 ---
-import type { Page } from "../types/Page";
 import type { MenuItem } from "../types/MenuItem";
 
 interface Props {
   menu: MenuItem[];
 }
 
-const { menu } = Astro.props;
+const { menu }: Props = Astro.props;
 ---
 
 <ul>

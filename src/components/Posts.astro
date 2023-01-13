@@ -1,16 +1,20 @@
 ---
-import { getMenu } from "../api/menu";
 import { getPosts } from "../api/posts";
-import Navbar from "./Navbar.astro";
+import type { Node } from "../types/Node";
+import NodeNavbar from "./node/NodeNavbar.astro";
+
+interface Props {
+  node: Node;
+}
+
+const { node }: Props = Astro.props;
 
 const posts = await getPosts();
-
-const menu = await getMenu();
 ---
 
 <section>
-  <a href="/">Szeremlei Néptáncegyüttes</a>
-  <Navbar menu={menu} />
+  <NodeNavbar node={node}/>
+  <h1>{node?.title?.rendered}</h1>
   {
     posts.map((post) => (
       <article>

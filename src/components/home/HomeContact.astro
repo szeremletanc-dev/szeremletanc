@@ -8,9 +8,9 @@ import PrimaryButton from "../PrimaryButton.astro";
   <div>
     <div class="links">
       <PrimaryButton url={"/kapcsolat"} text="Kapcsolat" />
-      <div class="icon">
+      <a href="https://www.facebook.com/neptancegyuttes.szeremlei" target="_blank" rel="noopener noreferrer">
         <FacebookIcon className={"home-facebook-button"} />
-      </div>
+      </a>
     </div>
   </div>
 </div>
@@ -25,6 +25,10 @@ import PrimaryButton from "../PrimaryButton.astro";
     margin-top: 2rem;
   }
 
+  p {
+    font-family: "Open Sans", sans-serif;
+  }
+
   .links {
     display: grid;
     grid-template-columns: auto auto;
@@ -35,12 +39,32 @@ import PrimaryButton from "../PrimaryButton.astro";
     padding-top: 1rem;
   }
 
-  .icon {
+  a {
     height: 3rem;
     width: 3rem;
     display: grid;
     place-items: center;
     background-color: #b5584f;
+    border: 0.1rem solid #b5584f;
     border-radius: 10rem;
+  }
+
+  a:hover {
+    box-shadow: 0.1rem 0.1rem 0rem 0rem #b5584f;
+    color: #b5584f;
+    background: white;
+    transition: 0.1s;
+  }
+
+  a:hover svg {
+    fill: #b5584f;
+    background: white;
+    transition: 0.1s;
+  }
+
+  a:active {
+    box-shadow: -0.1rem -0.1rem 0rem 0rem #b5584f;
+    transform: translate(0.1rem, 0.1rem);
+    transition: 0.1s;
   }
 </style>
