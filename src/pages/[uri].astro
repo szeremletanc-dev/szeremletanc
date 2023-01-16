@@ -1,13 +1,16 @@
 ---
+import type { Params } from "astro";
 import { search } from "../api/search";
+import Creator from "../components/home/Creator.astro";
 import Node from "../components/Node.astro";
+import NodeNavbar from "../components/node/NodeNavbar.astro";
 import Posts from "../components/Posts.astro";
 import Layout from "../layouts/Layout.astro";
 import type { Node as NodeType } from "../types/Node";
 
-const { uri } = Astro.params;
+const { uri }: Params = Astro.params;
 
-let node: NodeType = null;
+let node: NodeType | null = null;
 if (uri) {
   node = await search(uri);
   if (node === null) {
@@ -22,5 +25,7 @@ if (node?.type === "page" && node.menu_order === 100) {
 ---
 
 <Layout title={`${node?.title.rendered} - Szeremlei Néptáncegyüttes`}>
+  <NodeNavbar node={node} />
   {isPageForPosts ? <Posts node={node} /> : <Node node={node} />}
+  <Creator />
 </Layout>

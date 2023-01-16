@@ -44,7 +44,8 @@ const menu = await getMenu();
   header {
     width: 100%;
     background: #b5584f;
-    height: 4em;
+    height: 8em;
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.2);
   }
 
   a {
@@ -64,18 +65,22 @@ const menu = await getMenu();
 
   .logo {
     font-family: "Imperial Script", cursive;
-    font-size: 2em;
+    font-size: 2.5em;
     height: 100%;
     display: grid;
-    align-items: center;
+    align-items: flex-start;
     justify-items: start;
+    padding-top: 1rem;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
   }
 
   .menu {
     height: 100%;
     display: grid;
-    align-items: center;
+    align-items: flex-start;
     justify-items: end;
+    padding-top: .8rem;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
   }
 
   nav ul {
@@ -93,7 +98,6 @@ const menu = await getMenu();
   }
 
   .styled {
-    /* text-decoration: underline; */
     border-bottom: 1px solid white;
   }
 </style>
