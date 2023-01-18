@@ -1,7 +1,5 @@
 ---
 import type { Node } from "../types/Node";
-import Video from "./home/Video.astro";
-import NodeNavbar from "./node/NodeNavbar.astro";
 
 interface Props {
   node: Node;
@@ -10,7 +8,7 @@ interface Props {
 const { node }: Props = Astro.props;
 ---
 
-<section>
+<section class="node-section">
   <article class="node">
     <h1>{node?.title?.rendered}</h1>
     <div class="content" set:html={node?.content?.rendered} />
@@ -18,10 +16,14 @@ const { node }: Props = Astro.props;
 </section>
 
 <style is:global>
+  .node-section {
+    min-height: calc(100vh - calc(var(--header-height) + calc(var(--footer-height) + var(--node-margin-top))));
+  }
+
   .node {
     max-width: 1000px;
     width: 90%;
-    margin: -3rem auto 2rem auto;
+    margin: var(--node-margin-top) auto 2rem auto;
     background: white;
     padding: 2rem;
     border-radius: 2rem;
@@ -35,6 +37,7 @@ const { node }: Props = Astro.props;
   .node h5,
   .node h6 {
     font-family: "Playfair Display", serif;
+    font-weight: normal;
   }
 
   .node h1 {
@@ -49,11 +52,11 @@ const { node }: Props = Astro.props;
     text-align: justify;
   }
 
-  .content .wp-block-image figure {
+  .wp-block-image figure {
     align-items: center;
   }
 
-  .content .wp-block-image img {
+  .wp-block-image img {
     max-width: 100%;
     display: block;
     height: auto;
@@ -99,11 +102,19 @@ const { node }: Props = Astro.props;
     width: 100%;
   }
 
-  .content a {
-    padding-right: 1rem;
+  .content a[href^="tel"],
+  .content a[href^="tel"]:hover,
+  .content a[href^="mailto"],
+  .content a[href^="mailto"]:hover {
+    color: #b5584f;
   }
 
-  .content a.wp-block-file__button {
+  a[id^="wp-block-file"] {
+    padding-right: 1rem;
+    color: #b5584f;
+  }
+
+  .wp-block-file__button {
     width: fit-content;
     height: 3rem;
     padding: 0 1rem;
@@ -119,14 +130,14 @@ const { node }: Props = Astro.props;
     border: 0.1rem solid #b5584f;
   }
 
-  .content a.wp-block-file__button:hover {
+  .wp-block-file__button:hover {
     box-shadow: 0.1rem 0.1rem 0rem 0rem #b5584f;
     color: #b5584f;
     background: white;
     transition: 0.1s;
   }
 
-  .content a.wp-block-file__button:active {
+  .wp-block-file__button:active {
     box-shadow: -0.1rem -0.1rem 0rem 0rem #b5584f;
     transform: translate(0.1rem, 0.1rem);
     transition: 0.1s;
@@ -170,5 +181,20 @@ const { node }: Props = Astro.props;
     left: 0;
     width: 100%;
     height: 100%;
+  }
+
+  iframe[src^="https://www.google.com/maps"]
+  {
+    max-width: 1000px;
+    width: 100%;
+  }
+
+  .wp-block-video {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .wp-block-video video {
+    width: 100%;
   }
 </style>

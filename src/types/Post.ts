@@ -13,5 +13,6 @@ export type Post = {
   date: string;
   author: number;
   categories: number[];
-  type: "post";
+  type: "post"
+  menu_order: never;
 }

@@ -11,16 +11,70 @@ const { node }: Props = Astro.props;
 const posts = await getPosts();
 ---
 
-<section>
-  <h1>{node?.title?.rendered}</h1>
-  {
-    posts.map((post) => (
-      <article>
-        <h1>
-          <a href={`/${post.slug}`}>{post.title.rendered}</a>
-        </h1>
-        <div class="content" set:html={post.content.rendered} />
-      </article>
-    ))
-  }
+<section class="posts-section">
+  <div class="posts">
+    <h1>{node?.title?.rendered}</h1>
+    <div class="posts-content">
+      {
+        posts.map((post) => (
+          <article>
+            <h1>
+              <a href={`/${post.slug}`}>{post.title.rendered}</a>
+            </h1>
+            <div class="content" set:html={post.excerpt.rendered} />
+          </article>
+        ))
+      }
+    </div>
+  </div>
 </section>
+
+<style is:global>
+  .posts-section {
+    min-height: calc(100vh - calc(var(--posts-header-height) + var(--footer-height)));
+  }
+
+  .posts {
+    max-width: 1000px;
+    width: 90%;
+    margin: 0 auto 2rem auto;
+    padding: 2rem;
+    /* border: 1px dotted black; */
+  }
+
+  .posts h1,
+  .posts h2,
+  .posts h3,
+  .posts h4,
+  .posts h5,
+  .posts h6 {
+    font-family: "Playfair Display", serif;
+    font-weight: normal;
+  }
+
+  .posts h1 {
+    text-align: center;
+  }
+
+  .posts-content {
+    margin: 3rem 0;
+  }
+
+  .posts article {
+    background: white;
+    border-radius: 0.5rem;
+    padding: 1rem 2rem;
+    margin: 1rem 0;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
+  }
+
+  .posts article h1 {
+    text-align: start;
+    font-size: 1.5rem;
+  }
+
+  .posts article h1 a {
+    color: black;
+    text-decoration: underline;
+  }
+</style>

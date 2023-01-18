@@ -1,6 +1,6 @@
 ---
-import { getMenu } from "../../api/menu";
-import type { Node } from "../../types/Node";
+import { getMenu } from "../api/menu";
+import type { Node } from "../types/Node";
 
 interface Props {
   node: Node;
@@ -8,9 +8,14 @@ interface Props {
 
 const { node }: Props = Astro.props;
 const menu = await getMenu();
+let isPageForPosts: boolean = false;
+
+if (node?.menu_order === 100) {
+  isPageForPosts = true;
+}
 ---
 
-<header>
+<header class={isPageForPosts ? "lowheight" : ""}>
   <div class="grid">
     <div class="logo">
       <a href="/">Szeremlei Néptáncegyüttes</a>
@@ -21,6 +26,7 @@ const menu = await getMenu();
           {
             menu.map((item) => {
               let styled: boolean = false;
+
               if (item.slug === node?.slug) {
                 styled = true;
               }
@@ -44,8 +50,12 @@ const menu = await getMenu();
   header {
     width: 100%;
     background: #b5584f;
-    height: 8em;
-    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.2);
+    height: var(--header-height);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+  }
+
+  .lowheight {
+    height: var(--posts-header-height);
   }
 
   a {
@@ -79,7 +89,7 @@ const menu = await getMenu();
     display: grid;
     align-items: flex-start;
     justify-items: end;
-    padding-top: .8rem;
+    padding-top: 0.8rem;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
   }
 
@@ -99,5 +109,11 @@ const menu = await getMenu();
 
   .styled {
     border-bottom: 1px solid white;
+  }
+
+  @media (max-width: 1000px) {
+    .menu {
+      display: none;
+    }
   }
 </style>
