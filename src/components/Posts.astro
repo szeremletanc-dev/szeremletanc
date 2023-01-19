@@ -1,6 +1,7 @@
 ---
 import { getPosts } from "../api/posts";
 import type { Node } from "../types/Node";
+import PrimaryButton from "./PrimaryButton.astro";
 
 interface Props {
   node: Node;
@@ -18,10 +19,9 @@ const posts = await getPosts();
       {
         posts.map((post) => (
           <article>
-            <h1>
-              <a href={`/${post.slug}`}>{post.title.rendered}</a>
-            </h1>
+            <h1>{post.title.rendered}</h1>
             <div class="content" set:html={post.excerpt.rendered} />
+            <PrimaryButton url={`/${post.slug}`} text="Tovább"/>
           </article>
         ))
       }

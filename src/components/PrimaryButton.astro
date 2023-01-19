@@ -7,12 +7,12 @@ interface Props {
 const { url, text }: Props = Astro.props;
 ---
 
-<a href={url}>
+<a class="primary-button" href={url}>
   <div>{text}</div>
 </a>
 
 <style>
-  a {
+  .primary-button {
     width: fit-content;
     height: 3rem;
     padding: 0 1rem;
@@ -28,14 +28,14 @@ const { url, text }: Props = Astro.props;
     border: 0.1rem solid #b5584f;
   }
 
-  a:hover {
+  .primary-button:hover {
     box-shadow: 0.1rem 0.1rem 0rem 0rem #b5584f;
     color: #b5584f;
     background: white;
     transition: 0.1s;
   }
 
-  a:active {
+  .primary-button:active {
     box-shadow: -0.1rem -0.1rem 0rem 0rem #b5584f;
     transform: translate(0.1rem, 0.1rem);
     transition: 0.1s;

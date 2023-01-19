@@ -52,6 +52,10 @@ const { node }: Props = Astro.props;
     text-align: justify;
   }
 
+  .wp-block-image {
+    margin: 1rem 0;
+  }
+
   .wp-block-image figure {
     align-items: center;
   }
@@ -70,7 +74,7 @@ const { node }: Props = Astro.props;
     color: #666;
   }
 
-  .content blockquote {
+  .wp-blockquote {
     max-width: 900px;
     font-size: 1rem;
     font-style: italic;
@@ -80,7 +84,7 @@ const { node }: Props = Astro.props;
     border-left: 0.5rem solid #ccc;
   }
 
-  .content blockquote cite {
+  .wp-blockquote cite {
     font-size: 0.8rem;
     font-style: normal;
     font-family: "Open Sans", sans-serif;
@@ -89,7 +93,7 @@ const { node }: Props = Astro.props;
     margin-top: 0.5rem;
   }
 
-  .content pre {
+  .wp-block-verse {
     max-width: 900px;
     font-size: 1rem;
     font-family: "Fira Mono", monospace;
@@ -98,20 +102,18 @@ const { node }: Props = Astro.props;
     border-left: 0.5rem solid #ccc;
   }
 
-  .content figure audio {
+  .wp-block-audio audio {
     width: 100%;
   }
 
-  .content a[href^="tel"],
-  .content a[href^="tel"]:hover,
-  .content a[href^="mailto"],
-  .content a[href^="mailto"]:hover {
+  .content a[id^="wp-block-file"] {
+    padding-right: 1rem;
     color: #b5584f;
   }
 
-  a[id^="wp-block-file"] {
-    padding-right: 1rem;
+  .content a:not(.wp-block-file__button) {
     color: #b5584f;
+  
   }
 
   .wp-block-file__button {
@@ -143,7 +145,7 @@ const { node }: Props = Astro.props;
     transition: 0.1s;
   }
 
-  .content table {
+  .wp-block-table table {
     width: 100%;
     border-collapse: collapse;
     border-spacing: 0;
@@ -152,13 +154,13 @@ const { node }: Props = Astro.props;
     border-style: hidden;
   }
 
-  .content table tbody {
+  .wp-block-table tbody {
     background: #f7f7f7;
     padding: 0.5rem;
     text-align: left;
   }
 
-  .content table td {
+  .wp-block-table td {
     padding: 0.7rem 1rem;
     text-align: left;
     border: 1px solid #ccc;
@@ -183,7 +185,7 @@ const { node }: Props = Astro.props;
     height: 100%;
   }
 
-  iframe[src^="https://www.google.com/maps"]
+  .content iframe[src^="https://www.google.com/maps"]
   {
     max-width: 1000px;
     width: 100%;
@@ -197,4 +199,47 @@ const { node }: Props = Astro.props;
   .wp-block-video video {
     width: 100%;
   }
+
+  .is-nowrap {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    margin: 0 0 .5rem 0;
+  }
+
+
+
+  .is-nowrap div {
+    height: 1.5rem !important;
+    width: 1.5rem !important;
+    display: grid;
+    place-items: center;
+    /* background: #b5584f; */
+    
+  }
+
+  .icon-container {
+    /* height: calc(1.5rem - 2px); */
+    background: #b5584f;
+    border-radius: 1rem;
+  }
+
+  .is-nowrap svg {
+    /* margin: 1px 0 -1px 0; */
+    display: block;
+    height: 1rem;
+    width: 1rem;
+    stroke-width: 1px;
+    /* stroke-linecap: ; */
+    /* fill-rule: evenodd; */
+    fill: white;
+    stroke: #b5584f;
+    /* background: #b5584f; */
+    /* border-radius: 1rem; */
+  }
+
+  .is-nowrap p {
+    margin: 0 0 0 .5rem;
+  }
+
 </style>
