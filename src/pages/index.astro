@@ -5,18 +5,23 @@ import Layout from "../layouts/Layout.astro";
 import Cover from "../components/home/Cover.astro";
 import NavbarDesktop from "../components/home/NavbarDesktop.astro";
 import NavbarMobile from "../components/home/NavbarMobile.astro";
-import Sample from "../components/home/Sample.astro";
+import MainPage from "../components/home/MainPage.astro";
 import HomeContact from "../components/home/HomeContact.astro";
 import Video from "../components/home/Video.astro";
 import Footer from "../components/Footer.astro";
+import Node from "../components/Node.astro";
+import { getMainPage } from "../api/mainPage";
+
+const mainPage = await getMainPage();
 ---
 
 <Layout title="Szeremlei Néptáncegyüttes">
   <Cover />
   <NavbarDesktop />
   <NavbarMobile />
-  <Sample />
-  <Video src="https://www.youtube.com/embed/emG19leYHSo?start=4698"/>
-  <HomeContact/>
+  <Node node={mainPage} className={"mainpage-section"}/>
+  <!-- <MainPage /> -->
+  <!-- <Video src="https://www.youtube.com/embed/emG19leYHSo?start=4698"/> -->
+  <!-- <HomeContact/> -->
   <Footer />
 </Layout>
