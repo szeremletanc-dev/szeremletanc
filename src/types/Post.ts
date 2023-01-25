@@ -14,5 +14,5 @@ export type Post = {
   author: number;
   categories: number[];
   type: "post"
-  menu_order: never;
+  // menu_order: never;
 }

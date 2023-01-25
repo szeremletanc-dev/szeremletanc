@@ -2,6 +2,8 @@
 //This is the layout for the entire site
 
 import "normalize-css/normalize.css";
+import CloseButton from "../components/CloseButton.astro";
+import CloseIcon from "../components/CloseIcon.astro";
 
 export interface Props {
   title: string;
@@ -15,7 +17,10 @@ const { title } = Astro.props;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta name="description" content="A Szeremlei Néptáncegyüttes 1927 óta folyamatosan járja a Sárköz és Nagy-Magyarország táncait." />
+    <meta
+      name="description"
+      content="A Szeremlei Néptáncegyüttes 1927 óta folyamatosan járja a Sárköz és Nagy-Magyarország táncait."
+    />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
@@ -23,21 +28,44 @@ const { title } = Astro.props;
   <body>
     <!-- ELEMENTS HERE -->
     <slot />
+    <div class="hidden-overlay hide" id="hidden-overlay">
+      <CloseButton id="close-hidden-overlay" />
+      <!-- <div class="hidden-image-container"> -->
+        <img id="hidden-image" class="hidden-image" src=""/>
+      <!-- </div> -->
+    </div>
   </body>
 </html>
 
-<style is:global>
-  /*---
-	GLOBAL
-	---*/
+<script>
+  const hiddenOverlay = document.getElementById("hidden-overlay");
+  const closeHiddenOverlay = document.getElementById("close-hidden-overlay");
+  const hiddenImage = document.getElementById("hidden-image");
 
+  closeHiddenOverlay?.addEventListener("click", () => {
+    // hiddenImage?.setAttribute("src", "");
+    hiddenOverlay?.classList.remove("show");
+  });
+</script>
+
+<style is:global>
   @import url("https://fonts.googleapis.com/css2?family=Imperial+Script&display=swap");
   @import url("https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;500;700&display=swap");
   @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap");
   @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
+  * {
+    /* outline: 1px solid red; */
+    /* background: rgba(0, 255, 0, 0.1); */
+  }
+
+  *:nth-child(2) {
+    /* outline: 1px solid green; */
+    /* background: rgba(255, 0, 0, 0.1); */
+  }
+
+
   body {
-    overflow-x: hidden;
     background-color: #e8e8e8;
     --cover-height: 35rem;
     --home-navbar-width: 90%;
@@ -49,9 +77,37 @@ const { title } = Astro.props;
     --posts-header-height: 5rem;
   }
 
-  /*---
-	MEDIA QUERIES
-	---*/
+  .hidden-overlay {
+    position: fixed;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(7px);
+    color: white;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 5rem auto;
+    align-items: flex-start;
+    justify-items: center;
+    gap: 1rem;
+    z-index: 1;
+
+    clip-path: inset(0 0 100% 0);
+    transition: 0.3s ease-in-out;
+  }
+
+  .hidden-image {
+    max-width: 1000px;
+    width: 100%;
+    max-height: 700px;
+    object-fit: contain;
+  }
+
+  .show {
+    clip-path: inset(0 0 0 0);
+  }
 
   @media screen and (max-width: 768px) {
     body {

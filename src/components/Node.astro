@@ -16,6 +16,23 @@ const { node, className }: Props = Astro.props;
   </article>
 </section>
 
+<script>
+  const images = document.querySelectorAll(".wp-block-image img");
+  const hiddenImage = document.getElementById("hidden-image");
+  const hiddenOverlay = document.getElementById("hidden-overlay");
+
+  if (hiddenOverlay && hiddenImage) {
+    for (let image of images) {
+      const src = image.getAttribute("src") || "";
+
+      image.addEventListener("click", () => {
+        hiddenImage.setAttribute("src", src);
+        hiddenOverlay.classList.add("show");
+      });
+    }
+  }
+</script>
+
 <style is:global>
   .node-section {
     min-height: calc(100vh - calc(var(--header-height) + calc(var(--footer-height) + var(--node-margin-top))));
@@ -43,10 +60,12 @@ const { node, className }: Props = Astro.props;
   .node h6 {
     font-family: "Playfair Display", serif;
     font-weight: normal;
+    margin-top: 2rem;
   }
 
   .node h1 {
     text-align: center;
+    margin-top: 0;
   }
 
   .content {
@@ -70,6 +89,7 @@ const { node, className }: Props = Astro.props;
     display: block;
     height: auto;
     margin: 0 auto;
+    cursor: pointer;
   }
 
   .content figcaption {
@@ -284,5 +304,52 @@ const { node, className }: Props = Astro.props;
 
   .is-content-justification-center {
     justify-content: center;
+  }
+
+  .wp-block-gallery {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0 1rem;
+  }
+
+  .wp-block-gallery figure {
+    position: relative;
+  }
+
+  .wp-block-gallery img {
+    max-height: 14rem;
+    width: auto;
+  }
+
+  .wp-block-gallery figcaption {
+    display: block;
+    margin: .5rem 0 0 0;
+  }
+
+  .wp-block-gallery .wp-block-image + .blocks-gallery-caption {
+    grid-column-start: 1;
+    grid-column-end: 4;
+  }
+
+  @media (max-width: 768px) {
+    .wp-block-gallery {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .wp-block-gallery .wp-block-image + .blocks-gallery-caption {
+    grid-column-start: 1;
+    grid-column-end: 3;
+  }
+  }
+
+  @media (max-width: 480px) {
+    .wp-block-gallery {
+      grid-template-columns: 1fr;
+    }
+
+    .wp-block-gallery .wp-block-image + .blocks-gallery-caption {
+    grid-column-start: 1;
+    grid-column-end: 2;
+  }
   }
 </style>

@@ -7,6 +7,7 @@ const menu = await getMenu();
 <nav class="home-navbar-desktop">
   <ul>
     {
+      menu && 
       menu.map((item) => {
         return (
           <li>
@@ -26,6 +27,7 @@ const menu = await getMenu();
     transform: translate(0, -100%);
     width: var(--home-navbar-width);
     text-align: center;
+    text-shadow: 2px 2px 4px #000000;
   }
 
   .home-navbar-desktop ul {

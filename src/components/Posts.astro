@@ -1,15 +1,16 @@
 ---
-import { getPosts } from "../api/posts";
 import type { Node } from "../types/Node";
 import PrimaryButton from "./PrimaryButton.astro";
 
 interface Props {
-  node: Node;
+  node?: Node;
+  posts?: Node[];
 }
 
-const { node }: Props = Astro.props;
+const { node, posts }: Props = Astro.props;
 
-const posts = await getPosts();
+// let isMainPage = false;
+// console.log(posts);
 ---
 
 <section class="posts-section">
@@ -17,13 +18,24 @@ const posts = await getPosts();
     <h1>{node?.title?.rendered}</h1>
     <div class="posts-content">
       {
-        posts.map((post) => (
-          <article>
-            <h1>{post.title.rendered}</h1>
-            <div class="content" set:html={post.excerpt.rendered} />
-            <PrimaryButton url={`/${post.slug}`} text="Tovább"/>
-          </article>
-        ))
+        posts &&
+          posts.map((post) => {
+            let isMainPage = false;
+
+            if (post?.type === "page" && post.menu_order === 1) {
+              isMainPage = true;
+            }
+
+            let url = isMainPage ? "/" : `/${post?.slug}`;
+
+            return (
+              <article>
+                <h1>{post?.title.rendered}</h1>
+                <div class="content" set:html={post?.excerpt.rendered} />
+                <PrimaryButton url={url} text="Tovább" />
+              </article>
+            );
+          })
       }
     </div>
   </div>

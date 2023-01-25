@@ -1,0 +1,52 @@
+---
+import CloseIcon from "./CloseIcon.astro";
+
+interface Props {
+  id: string;
+  className?: string;
+}
+
+const { id, className } = Astro.props;
+---
+
+<button id={id} class={`close-hidden-overlay ${className}`}>
+  <CloseIcon />
+</button>
+
+<style is:global>
+  .close-hidden-overlay {
+    width: 3rem;
+    height: 3rem;
+    padding: 0;
+    display: grid;
+    place-items: center;
+    background-color: #b5584f;
+    font-family: "Open Sans", sans-serif;
+    border-radius: 10rem;
+    display: grid;
+    margin-top: 1.5rem;
+    text-decoration: none;
+    appearance: button;
+    color: white;
+    border: 0;
+    transition: 0.1s;
+  }
+
+  .close-hidden-overlay:hover {
+    color: #b5584f !important;
+    background: white !important;
+    transition: 0.1s;
+  }
+  .close-hidden-overlay:hover svg {
+    stroke: #b5584f !important;
+  }
+
+  .close-hidden-overlay:active {
+    /* border: 0.2rem solid rgba(0, 0, 0, 0); */
+  }
+
+  .close-hidden-overlay:active svg {
+    transform: scale(0.9);
+    /* transition: scale 1s; */
+  }
+</style>

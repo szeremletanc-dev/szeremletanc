@@ -1,18 +1,19 @@
 ---
 import type { Params } from "astro";
-import { search } from "../api/search";
+import { getNode } from "../api/node";
 import Node from "../components/Node.astro";
 import Header from "../components/Header.astro";
 import Posts from "../components/Posts.astro";
 import Layout from "../layouts/Layout.astro";
 import type { Node as NodeType } from "../types/Node";
 import Footer from "../components/Footer.astro";
+import { getPosts } from "../api/posts";
 
 const { uri }: Params = Astro.params;
 
 let node: NodeType | null = null;
 if (uri) {
-  node = await search(uri);
+  node = await getNode(uri);
   if (node === null) {
     return Astro.redirect("/404");
   }
@@ -22,10 +23,12 @@ let isPageForPosts: boolean = false;
 if (node?.type === "page" && node.menu_order === 100) {
   isPageForPosts = true;
 }
+
+const posts = await getPosts();
 ---
 
 <Layout title={`${node?.title.rendered} - Szeremlei Néptáncegyüttes`}>
   <Header node={node} />
-  {isPageForPosts ? <Posts node={node} /> : <Node node={node} />}
+  {isPageForPosts ? <Posts node={node} posts={posts} /> : <Node node={node} />}
   <Footer />
 </Layout>

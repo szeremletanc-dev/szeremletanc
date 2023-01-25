@@ -1,18 +1,21 @@
-import type { Page } from "../types/Page";
-import type { Post } from "../types/Post";
+import type { Node } from "../types/Node";
 
-export async function search(uri: string): Promise<Page | Post | null> {
-  let result = null;
+export async function search(query: string): Promise<Node[]> {
+  const results: Node[] = [];
 
-  // is it a page?
-  const pageRes = await fetch(`${import.meta.env.PUBLIC_BACKEND_URL}/pages?slug=${uri}`);
-  const page = (await pageRes.json())[0] as Page;
-  result = page ? page : result;
+  let pages;
+  try {
+    const res = await fetch(`${import.meta.env.PUBLIC_BACKEND_URL}/pages?search=${query}`);
+    pages = await res.json();
+  } catch {}
 
-  // is it a post?
-  const postRes = await fetch(`${import.meta.env.PUBLIC_BACKEND_URL}/posts?slug=${uri}`);
-  const post = (await postRes.json())[0] as Post;
-  result = post ? post : result;
+  let posts;
+  try {
+    const res = await fetch(`${import.meta.env.PUBLIC_BACKEND_URL}/posts?search=${query}`);
+    posts = await res.json();
+  } catch {}
 
-  return result;
+  results.push(...pages, ...posts);
+
+  return results;
 }

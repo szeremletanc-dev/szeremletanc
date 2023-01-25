@@ -1,0 +1,46 @@
+---
+import { search } from "../../api/search";
+import Footer from "../../components/Footer.astro";
+import Header from "../../components/Header.astro";
+import Posts from "../../components/Posts.astro";
+import Layout from "../../layouts/Layout.astro";
+import type { Node } from "../../types/Node";
+
+const { query } = Astro.params;
+
+let text = "";
+if (query) {
+  text = query;
+}
+const res = await search(text);
+const arr: string[] = [];
+res?.map((item) => {
+  if (item && item?.title.rendered) {
+    arr.push(item.title.rendered);
+  }
+});
+
+const searchNode: Node = {
+  title: {
+    rendered: `Keresés: ${query}`,
+  },
+  id: 0,
+  content: {
+    rendered: "",
+  },
+  excerpt: {
+    rendered: "",
+  },
+  date: "",
+  slug: "",
+  author: 0,
+  categories: [],
+  type: "post",
+};
+---
+
+<Layout title={`Keresés: ${query} - Szeremlei Néptáncegyüttes`}>
+  <Header />
+  <Posts posts={res} node={searchNode} />
+  <Footer />
+</Layout>
