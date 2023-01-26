@@ -3,19 +3,17 @@
 
 import Layout from "../layouts/Layout.astro";
 import Cover from "../components/home/Cover.astro";
-import NavbarDesktop from "../components/home/NavbarDesktop.astro";
-import NavbarMobile from "../components/home/NavbarMobile.astro";
 import Footer from "../components/Footer.astro";
 import Node from "../components/Node.astro";
 import { getMainPage } from "../api/mainPage";
+import HomeNav from "../components/home/HomeNav.astro";
 
 const mainPage = await getMainPage();
 ---
 
 <Layout title="Szeremlei Néptáncegyüttes">
   <Cover />
-  <NavbarDesktop />
-  <NavbarMobile />
+  <HomeNav />
   <Node node={mainPage} className={"mainpage-section"} />
   <Footer />
 </Layout>

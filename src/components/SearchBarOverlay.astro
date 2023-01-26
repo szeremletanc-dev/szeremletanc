@@ -1,0 +1,114 @@
+---
+import CloseButton from "./CloseButton.astro";
+import SearchIcon from "./icons/SearchIcon.astro";
+---
+
+<div class="search-overlay" id="search-overlay">
+  <CloseButton id="close-search-overlay" className="close-search-overlay" />
+  <form class="search-form" id="search-form">
+    <input type="text" id="search-input" class="search-input" placeholder="Keresés..." />
+    <button type="submit" class="search-btn" id="search-btn">
+      <SearchIcon />
+    </button>
+    <!-- <input type="submit" hidden /> -->
+  </form>
+</div>
+
+<script>
+  const searchOverlay = document.getElementById("search-overlay");
+  const closeSearchOverlay = document.getElementById("close-search-overlay");
+
+  closeSearchOverlay?.addEventListener("click", () => {
+    searchOverlay?.classList.remove("show-search-overlay");
+  });
+
+  const searchForm = document.getElementById("search-form");
+  const searchInput: HTMLInputElement = document.getElementById("search-input") as HTMLInputElement;
+
+  searchForm?.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const searchQuery = searchInput?.value;
+
+    if (searchQuery) {
+      window.location.href = `/keres/${searchQuery}`;
+    }
+  });
+</script>
+
+<style is:global>
+  .search-overlay * {
+    /* outline: 1px solid green; */
+  }
+
+  .search-overlay {
+    position: fixed;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(7px);
+    color: white;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 5rem auto;
+    align-items: flex-start;
+    justify-items: center;
+    gap: 1rem;
+    z-index: 1;
+
+    clip-path: inset(0 0 100% 0);
+    transition: 0.3s ease-in-out;
+  }
+
+  .show-search-overlay {
+    clip-path: inset(0 0 0 0);
+  }
+
+  .close-search-overlay {
+    margin-top: 1.5rem;
+  }
+
+  .search-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 500px;
+    width: 100%;
+  }
+
+  .search-input {
+    display: block;
+    height: 3rem;
+    border: 0;
+    border-radius: 10rem 0 0 10rem;
+    margin-right: 0.5rem;
+    padding: 0 0.5rem 0 1rem;
+    width: 100%;
+  }
+
+  .search-input:focus {
+    outline: none;
+  }
+
+  .search-btn {
+    display: grid;
+    place-items: center;
+    height: 3rem;
+    width: 3rem;
+    border: 0;
+    border-radius: 0 10rem 10rem 0;
+    background: white;
+    cursor: pointer;
+    padding: 0 0.3rem 0 0;
+  }
+
+  .search-btn svg {
+    /* width: 65%; */
+    /* height: 65%; */
+    height: 1.5rem;
+    width: 1.5rem;
+  }
+</style>

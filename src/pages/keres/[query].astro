@@ -40,7 +40,7 @@ const searchNode: Node = {
 ---
 
 <Layout title={`Keresés: ${query} - Szeremlei Néptáncegyüttes`}>
-  <Header />
-  <Posts posts={res} node={searchNode} />
+  <Header className={"lowheight"}/>
+  <Posts posts={res} node={searchNode} forSearch={true}/>
   <Footer />
 </Layout>

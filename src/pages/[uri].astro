@@ -28,7 +28,7 @@ const posts = await getPosts();
 ---
 
 <Layout title={`${node?.title.rendered} - Szeremlei Néptáncegyüttes`}>
-  <Header node={node} />
+  <Header node={node} className={isPageForPosts ? "lowheight" : undefined} />
   {isPageForPosts ? <Posts node={node} posts={posts} /> : <Node node={node} />}
   <Footer />
 </Layout>

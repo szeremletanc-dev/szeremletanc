@@ -3,14 +3,12 @@ import type { Node } from "../types/Node";
 import PrimaryButton from "./PrimaryButton.astro";
 
 interface Props {
-  node?: Node;
+  node?: Node | null;
   posts?: Node[];
+  forSearch?: boolean;
 }
 
-const { node, posts }: Props = Astro.props;
-
-// let isMainPage = false;
-// console.log(posts);
+const { node, posts, forSearch }: Props = Astro.props;
 ---
 
 <section class="posts-section">
@@ -19,6 +17,7 @@ const { node, posts }: Props = Astro.props;
     <div class="posts-content">
       {
         posts &&
+          posts.length > 0 &&
           posts.map((post) => {
             let isMainPage = false;
 
@@ -37,20 +36,38 @@ const { node, posts }: Props = Astro.props;
             );
           })
       }
+
+      {
+        posts && posts.length === 0 && forSearch && (
+          <article>
+            <h1>Nincs találat</h1>
+          </article>
+        )
+      }
+
+      {
+        posts && posts.length === 0 && !forSearch && (
+          <article>
+            <h1>Nincs bejegyzés</h1>
+          </article>
+        )
+      }
     </div>
   </div>
 </section>
 
+<script></script>
+
 <style is:global>
   .posts-section {
-    min-height: calc(100vh - calc(var(--posts-header-height) + var(--footer-height)));
+    min-height: calc(var(--vh) - calc(var(--posts-header-height) + var(--footer-height)));
   }
 
   .posts {
     max-width: 1000px;
-    width: 90%;
+    /* width: 90%; */
     margin: 0 auto 2rem auto;
-    padding: 2rem;
+    padding: 2rem 0;
     /* border: 1px dotted black; */
   }
 
@@ -74,7 +91,7 @@ const { node, posts }: Props = Astro.props;
 
   .posts article {
     background: white;
-    border-radius: 0.5rem;
+    border-radius: 2rem;
     padding: 1rem 2rem;
     margin: 1rem 0;
     box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);

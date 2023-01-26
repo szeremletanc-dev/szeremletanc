@@ -1,0 +1,157 @@
+---
+import { getMenu } from "../../api/menu";
+import MenuIcon from "../icons/MenuIcon.astro";
+import SearchIcon from "../icons/SearchIcon.astro";
+
+const menu = await getMenu();
+---
+
+<div class="home-nav-cont">
+  <button class="home-search-btn" id="home-search-btn">
+    <SearchIcon />
+  </button>
+
+  <nav class="home-nav-desktop">
+    <ul>
+      {
+        menu &&
+          menu.map((item) => {
+            return (
+              <li>
+                <a href={`/${item.slug}`}>{item.title}</a>
+              </li>
+            );
+          })
+      }
+    </ul>
+  </nav>
+
+  <button class="home-menu-btn" id="home-menu-btn">
+    <MenuIcon />
+  </button>
+
+</div>
+
+<script>
+  const openButton = document.getElementById("home-menu-btn");
+  const container = document.getElementById("nav-mobile-container");
+
+  openButton?.addEventListener("click", () => {
+    container?.classList.add("nav-mobile-active");
+  });
+
+  const searchBtn = document.getElementById("home-search-btn");
+  const searchOverlay = document.getElementById("search-overlay");
+  const searchInput = document.getElementById("search-input");
+
+  searchBtn?.addEventListener("click", () => {
+    searchOverlay?.classList.add("show-search-overlay");
+    searchInput?.focus();
+  });
+</script>
+
+<style is:global>
+  .home-nav-cont {
+    position: absolute;
+    top: var(--mainpage-rect-top);
+    left: 50%;
+    transform: translate(-50%, -100%);
+    width: fit-content;
+    text-shadow: 2px 2px 4px #000000;
+
+    display: grid;
+    grid-template-columns: 2rem auto;
+  }
+
+  .home-nav-desktop {
+    display: grid;
+    place-items: center;
+  }
+
+  .home-nav-desktop ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-family: "Open Sans", sans-serif;
+    text-transform: uppercase;
+  }
+
+  .home-nav-desktop li {
+    display: inline-block;
+    padding: 0;
+    margin: 0 0 0 1rem;
+  }
+
+  .home-nav-desktop a {
+    display: block;
+    color: white;
+    text-decoration: none;
+  }
+
+  .home-search-btn {
+    border: 0;
+    background: none;
+    padding: 0;
+    height: 2rem;
+    display: grid;
+    place-items: center;
+  }
+
+  .home-search-btn svg {
+    stroke: white;
+    width: 1.5rem;
+    height: 1.5rem;
+    filter: drop-shadow(2px 2px 4px #000000);
+  }
+
+  .home-menu-btn {
+    display: none;
+    padding: 0;
+    background: none;
+    border: 0;
+    color: white;
+    height: 2rem;
+    place-items: center;
+    /* position: absolute; */
+    /* left: 50%; */
+    /* top: 17rem; */
+    /* transform: translate(-50%, 0%); */
+    /* width: 2rem; */
+  }
+
+  .home-menu-btn svg {
+    stroke: white;
+    width: 1.5rem;
+    height: 1.5rem;
+    filter: drop-shadow(2px 2px 4px #000000);
+  }
+
+  @media screen and (max-width: 768px) {
+    .home-nav-desktop {
+      display: none;
+    }
+
+    .home-menu-btn {
+      display: grid;
+    }
+
+    .home-nav-cont {
+      grid-template-columns: 2rem 2rem;
+      top: 19em;
+      gap: 1rem;
+      height: 2rem;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .home-menu-btn {
+      top: 9.5rem;
+    }
+  }
+
+  @media screen and (max-width: 360px) {
+    .home-menu-btn {
+      top: 5rem;
+    }
+  }
+</style>

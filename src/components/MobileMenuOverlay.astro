@@ -1,13 +1,14 @@
 ---
 import { getMenu } from "../api/menu";
 import CloseButton from "./CloseButton.astro";
+import SearchIcon from "./icons/SearchIcon.astro";
 
 const menu = await getMenu();
 ---
 
 <div class="nav-mobile-container" id="nav-mobile-container">
   <CloseButton id="nav-mobile-close-btn" className="nav-mobile-close-btn" />
-
+  
   <nav class="nav-mobile">
     <ul>
       {
@@ -69,7 +70,7 @@ const menu = await getMenu();
   }
 
   .nav-mobile-close-btn {
-    margin: 1rem auto;
+    margin: 1.5rem auto;
     text-align: center;
   }
 
@@ -79,9 +80,12 @@ const menu = await getMenu();
     text-transform: uppercase;
   }
 
+  .nav-mobile li {
+    padding: 1rem 0;
+  }
+
   .nav-mobile a {
     display: block;
-    padding: 1rem;
     color: white;
     text-decoration: none;
     text-shadow: 2px 2px 4px #000000;
