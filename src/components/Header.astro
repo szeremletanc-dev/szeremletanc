@@ -51,7 +51,7 @@ const menu = await getMenu();
     </div>
 
     <div class="menu-btn-cont">
-      <button id="menu-btn"> <MenuIcon /></button>
+      <button class="menu-btn" id="menu-btn"> <MenuIcon /></button>
     </div>
   </div>
 </header>
@@ -175,13 +175,17 @@ const menu = await getMenu();
     height: var(--posts-header-height);
   }
 
-  .menu-btn-cont button {
+  .menu-btn {
     padding: 0;
     background: none;
     border: 0;
     color: white;
     width: 2rem;
     height: 2rem;
+  }
+  
+  .menu-btn svg {
+    filter: drop-shadow(2px 2px 7px #000000);
   }
 
   @media (max-width: 1000px) {
