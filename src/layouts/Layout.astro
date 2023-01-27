@@ -18,10 +18,55 @@ const { title } = Astro.props;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
+
+    <!-- HTML Meta Tags -->
+    <meta name="title" content={title} />
     <meta
       name="description"
-      content="A Szeremlei Néptáncegyüttes 1927 óta folyamatosan járja a Sárköz és Nagy-Magyarország táncait."
+      content="Szeremle és a Sárköz hagyományainak az életben tartása, színpadi bemutatása, közösség építése 1927 óta"
     />
+    <meta name="keywords" content="szeremle, néptánc, sárköz, sugovica, duna, népzene" />
+    <meta name="robots" content="index, follow" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="language" content="Hindi" />
+    <meta name="revisit-after" content="1 days" />
+
+    <!-- Google / Search Engine Tags -->
+    <meta itemprop="name" content="Szeremlei Néptáncegyüttes" />
+    <meta
+      itemprop="description"
+      content="Szeremle és a Sárköz hagyományainak az életben tartása, színpadi bemutatása, közösség építése 1927 óta"
+    />
+    <meta
+      itemprop="image"
+      content="https://api.szeremletanc.hu/wp-content/uploads/2023/01/lakidazas_vagott-1024x683.jpg"
+    />
+
+    <!-- Facebook Meta Tags -->
+    <meta property="og:url" content="https://szeremletanc.hu" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Szeremlei Néptáncegyüttes" />
+    <meta
+      property="og:description"
+      content="Szeremle és a Sárköz hagyományainak az életben tartása, színpadi bemutatása, közösség építése 1927 óta"
+    />
+    <meta
+      property="og:image"
+      content="https://api.szeremletanc.hu/wp-content/uploads/2023/01/lakidazas_vagott-1024x683.jpg"
+    />
+
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Szeremlei Néptáncegyüttes" />
+    <meta
+      name="twitter:description"
+      content="Szeremle és a Sárköz hagyományainak az életben tartása, színpadi bemutatása, közösség építése 1927 óta"
+    />
+    <meta
+      name="twitter:image"
+      content="https://api.szeremletanc.hu/wp-content/uploads/2023/01/lakidazas_vagott-1024x683.jpg"
+    />
+
     <link rel="icon" type="image/svg+xml" href="/favicon.png" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
