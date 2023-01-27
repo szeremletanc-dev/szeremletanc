@@ -6,14 +6,16 @@ interface Props {
   node?: Node | null;
   posts?: Node[];
   forSearch?: boolean;
+  forNotFound?: boolean;
 }
 
-const { node, posts, forSearch }: Props = Astro.props;
+const { node, posts, forSearch, forNotFound }: Props = Astro.props;
+const title = forNotFound ? "404" : node?.title?.rendered;
 ---
 
 <section class="posts-section">
   <div class="posts">
-    <h1>{node?.title?.rendered}</h1>
+    <h1>{title}</h1>
     <div class="posts-content">
       {
         posts &&
@@ -49,6 +51,14 @@ const { node, posts, forSearch }: Props = Astro.props;
         posts && posts.length === 0 && !forSearch && (
           <article>
             <h1>Nincs bejegyzés</h1>
+          </article>
+        )
+      }
+
+      {
+        forNotFound && (
+          <article>
+            <h1>A keresett oldal nem található</h1>
           </article>
         )
       }

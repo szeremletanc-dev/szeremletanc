@@ -1,15 +1,12 @@
 ---
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import Posts from "../components/Posts.astro";
 import Layout from "../layouts/Layout.astro";
-
 ---
 
 <Layout title="Nem található">
-  <div>
-    <p>A lap nem található.</p>
-    <a href="/">Szeremlei Néptáncegyüttes</a>
-  </div>
+  <Header className={"lowheight"} />
+  <Posts forNotFound={true} />
+  <Footer />
 </Layout>
-
-<style>
-
-</style>
